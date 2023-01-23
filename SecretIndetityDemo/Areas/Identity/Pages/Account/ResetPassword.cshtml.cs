@@ -103,8 +103,15 @@ namespace SecretIndetityDemo.Areas.Identity.Pages.Account
                 // Don't reveal that the user does not exist
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
+            string pepper = _configuration["pepper"];
 
-            var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            var result =
+                await _userManager.ResetPasswordAsync(user
+                                                        , Input.Code
+                                                        , pepper + Input.Password);
+
             if (result.Succeeded)
             {
                 return RedirectToPage("./ResetPasswordConfirmation");

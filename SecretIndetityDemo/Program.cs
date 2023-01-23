@@ -6,9 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
 // Add services to the container.
-var adminUserName = builder.Configuration["adminLogin:Username"];
-var adminPassword = builder.Configuration["AdminLogin:Password"];
-var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
 
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
